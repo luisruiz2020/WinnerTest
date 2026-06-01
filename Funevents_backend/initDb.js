@@ -27,9 +27,10 @@ const insertTestDataQuery = `
   SELECT 'Concierto de Rock', 100 
   WHERE NOT EXISTS (SELECT 1 FROM eventos WHERE nombre = 'Concierto de Rock');
 
+  /* AJUSTE: Se inserta el usuario administrador por defecto */
   INSERT INTO usuarios (nombre, email) 
-  SELECT 'Juan Perez', 'juan@mail.com'
-  WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'juan@mail.com');
+  SELECT 'admin', 'admin@email.com'
+  WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'admin@email.com');
 `;
 
 async function initializeDatabase() {
@@ -39,7 +40,7 @@ async function initializeDatabase() {
     console.log("Tablas verificadas/creadas con éxito.");
     
     await pool.query(insertTestDataQuery);
-    console.log("Datos de prueba insertados con éxito.");
+    console.log("Datos de prueba e inicialización de Admin listos.");
   } catch (error) {
     console.error("Error inicializando la base de datos:", error);
   }
